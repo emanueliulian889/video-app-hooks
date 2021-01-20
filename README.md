@@ -1,3 +1,3 @@
 ## Demo
 
-https://awesome-mestorf-b841f2.netlify.app/
+https://video-app-hooks-theta.vercel.app/
