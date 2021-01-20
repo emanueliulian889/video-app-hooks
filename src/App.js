@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import SearchBar from "./components/searchBar/searchBar";
+import VideoList from "./components/videoList/videoList";
+import VideoDetail from "./components/videoDetail/VideoDetail";
+import useVideos from "./hooks/useVideos";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+const App = () => {
+    const [selectedVideo, setSelectedVideo] = useState(null);
+    const [videos, search] = useVideos('buildings');
+
+    useEffect(() => {
+        setSelectedVideo(videos[0]);
+    }, [videos])
+
+    return (
+        <div className="ui container">
+            <SearchBar onFormSubmit={search}/>
+            <div className="ui grid">
+                <div className="ui row">
+                    <div className="eleven wide column">
+                        <VideoDetail video={selectedVideo} />
+                    </div>
+
+                    <div className="five wide column">
+                        <VideoList
+                            videos={videos}
+                            onVideoSelect={setSelectedVideo} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default App;
